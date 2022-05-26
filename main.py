@@ -24,7 +24,7 @@ def clearcmd():
 # Code
 def credits():
     print(Colorate.Horizontal(Colors.green_to_red, """
-   BTCScoper (May 22 2022) BY DRK#1337
+  BTCScoper (May 22 2022) BY DRK#1337
   ██████╗██████╗ ███████╗██████╗ ██╗████████╗███████╗
  ██╔════╝██╔══██╗██╔════╝██╔══██╗██║╚══██╔══╝██╔════╝
  ██║     ██████╔╝█████╗  ██║  ██║██║   ██║   ███████╗
@@ -45,7 +45,7 @@ Language: Python
 
 def price():
     print(Colorate.Horizontal(Colors.green_to_red, """
-   BTCScoper (May 22 2022)
+  BTCScoper (May 22 2022) BY DRK#1337
   ██████╗ ████████╗ ██████╗    ██████╗ ██████╗ ██╗ ██████╗███████╗
   ██╔══██╗╚══██╔══╝██╔════╝    ██╔══██╗██╔══██╗██║██╔════╝██╔════╝
   ██████╔╝   ██║   ██║         ██████╔╝██████╔╝██║██║     █████╗  
@@ -56,8 +56,8 @@ def price():
                                                                           """))
     response = requests.get('https://api.coindesk.com/v1/bpi/currentprice.json')
     data = response.json()
-    price = data["bpi"]["USD"]["rate_float"]
-    print(f"The current price of {Colors.yellow}1 BTC {Fore.LIGHTWHITE_EX}is{Colors.yellow}", f"${price}", Fore.LIGHTWHITE_EX)
+    pricedata = data["bpi"]["USD"]["rate_float"]
+    print(f"The current price of {Colors.yellow}1 BTC {Fore.LIGHTWHITE_EX}is{Colors.yellow}", f"${pricedata}", Fore.LIGHTWHITE_EX)
     
     print("""
     [1] Convert USD to BTC
@@ -68,8 +68,12 @@ def price():
     USER_OPTION = input(f"Option\n{Fore.RED}>")
     if USER_OPTION == "1":
         clearcmd()
-        response = requests.get("https://blockchain.info/tobtc?currency=USD&value=1")
-        print
+        USDINPUT = input(f"{Colors.white}How much USD do you want to convert to BTC?\n{Colors.red}>{Colors.white}")
+        response = requests.get(f"https://blockchain.info/tobtc?currency=USD&value={USDINPUT}")
+        print(f"Price for {Colors.yellow}${USDINPUT}{Colors.white} is",Colors.yellow,response.text, "BTC",Colors.white)
+        input("\n Press enter to go back.")
+        clearcmd()
+        price()
         
     elif USER_OPTION == "2":
         clearcmd()
@@ -88,7 +92,7 @@ def scoper():
 
 def home():
     print(Colorate.Horizontal(Colors.green_to_red, """
-   Version MEME (May 22 2022)
+  Version MEME (May 22 2022)
   ██████╗ ████████╗ ██████╗███████╗ ██████╗ ██████╗ ██████╗ ███████╗██████╗ 
   ██╔══██╗╚══██╔══╝██╔════╝██╔════╝██╔════╝██╔═══██╗██╔══██╗██╔════╝██╔══██╗
   ██████╔╝   ██║   ██║     ███████╗██║     ██║   ██║██████╔╝█████╗  ██████╔╝
@@ -111,7 +115,10 @@ def home():
     USER_OPTION = input(f"Option\n{Fore.RED}>")
     if USER_OPTION == "1":
         clearcmd()
-        
+        print(f"{Colors.white}Under development\n")
+        input("\n Press enter to go back.")
+        clearcmd()
+        home()        
     elif USER_OPTION == "2":
         clearcmd()
         price()
@@ -134,4 +141,3 @@ if __name__ == "__main__":
     home()
 else:
     print("[-] Error: This file is not meant to be imported.")
-
